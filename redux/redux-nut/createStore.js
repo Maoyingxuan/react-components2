@@ -1,6 +1,9 @@
-export default function createStore (reducer) {
+export default function createStore (reducer,enhancer) {
     let currentState
     let currentListeners = []
+    if(enhancer){
+        return enhancer(createStore)(reducer)
+    }
     function getState(){
         return currentState
     }

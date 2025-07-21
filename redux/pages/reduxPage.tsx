@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {store} from '../store'
 export default function ReduxPage(){
-    const [state, setState] = useState(store.getState());
+    const [state, setState] = useState(store.getState().count);
     const add = () => {
         store.dispatch({type: 'ADD'})
         console.log(store.getState());
@@ -11,7 +11,7 @@ export default function ReduxPage(){
     }
     useEffect(() => {
         const unsubscribe = store.subscribe(() => {
-            setState(store.getState());
+            setState(store.getState().count);
         });
         return () => unsubscribe();
     }, []);
