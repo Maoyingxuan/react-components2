@@ -1,9 +1,10 @@
 import ReduxPage from '../pages/reduxPage'
-
+import RtkPage from '../pages/rtkPage'
 function App() {
   return (
     <>
-    <ReduxPage></ReduxPage>
+    {/* <ReduxPage></ReduxPage> */}
+    <RtkPage></RtkPage>
     </>
   )
 }
