@@ -17,7 +17,7 @@ export function createSlice({name,initialState,reducers}){
     })
 }
     return{
-        name,
+        name, 
         actions:actionCreators,
         reducer: (state,action)=>{
             if(!_reducer){
