@@ -4,7 +4,6 @@ export default function ReduxPage(){
     const [state, setState] = useState(store.getState().count);
     const add = () => {
         store.dispatch({type: 'ADD'})
-        console.log(store.getState());
     }
     const minus = () => {
         store.dispatch({type: 'Minus'})
