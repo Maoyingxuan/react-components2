@@ -1,4 +1,5 @@
-import {createReducer} from '@reduxjs/toolkit'
+// import {createReducer} from '@reduxjs/toolkit'
+import {produce }from "immer"
 export function createSlice({name,initialState,reducers}){
     const reducerNames = Object.keys(reducers)
     const actionCreators = {}
@@ -37,4 +38,32 @@ function createAction(type){
     }
     creator.type = type
     return creator
+}
+
+function createReducer(initialState,mapOrBuilderCallback){
+    let [actionMap] = executeReducerBuilderCallback(mapOrBuilderCallback)
+    // actionMap就是 counter/increment: reducer .....
+    function reducer(state = initialState,action){
+        const caseReducers = [actionMap[action.type]]
+        return caseReducers.reduce((previousState,caseReducer)=>{
+            if(caseReducer){
+                return produce(previousState,(draft)=>{
+                    return caseReducer(draft,action)
+                })
+            }
+            return previousState
+        },state)
+    }
+    return reducer
+    }
+    function executeReducerBuilderCallback(mapOrBuilderCallback){
+        const actionsMap = {};
+        const builder = {
+            addCase: (type, reducer) => {
+            actionsMap[type] = reducer;
+            return builder;
+            },
+        };
+        mapOrBuilderCallback(builder);
+        return [actionsMap];
 }

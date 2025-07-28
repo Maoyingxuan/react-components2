@@ -5,8 +5,8 @@ function App() {
   return (
     <>
     {/* <ReduxPage></ReduxPage> */}
-    {/* <RtkPage></RtkPage> */}
-    <ReactReduxPage></ReactReduxPage>
+    <RtkPage></RtkPage>
+    {/* <ReactReduxPage></ReactReduxPage> */}
     </>
   )
 }
