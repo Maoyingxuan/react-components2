@@ -13,7 +13,7 @@ export default function ReduxPage(){
             setState(store.getState().count);
         });
         return () => unsubscribe();
-    }, []);
+    }, [state]);
     return(
         <div>
             <h3>ReduxPage</h3>

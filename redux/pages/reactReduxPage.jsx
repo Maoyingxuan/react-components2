@@ -6,8 +6,7 @@ export default function ReactReduxPage(){
     const dispatch = useDispatch()
     const add = useCallback(() => {
         dispatch({type: "ADD"})
-    },[]      
-    )
+    },[])
     return (
         <div>
             <h1>ReactReduxPage</h1>

@@ -1,6 +1,7 @@
-import React,{useSyncExternalStore} from "react"
+import React from "react"
+import {useSyncExternalStore} from "use-sync-external-store/shim"
 import { useContext } from "react"
-import { Provider } from "./Provider"
+
 // Context传值 
 // 1.创建context对象
 export const Context = React.createContext()
