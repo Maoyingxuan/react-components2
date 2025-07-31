@@ -1,16 +1,3 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-  Outlet,
-  useNavigate,
-  useParams,
-  Navigate,
-  useLocation,
-} from "react-router-dom";
-import { AuthProvider, useAuth } from "./auth";
-
 // import {
 //   BrowserRouter as Router,
 //   Routes,
@@ -19,7 +6,22 @@ import { AuthProvider, useAuth } from "./auth";
 //   Outlet,
 //   useNavigate,
 //   useParams,
-// } from "../router6-nut/";
+//   Navigate,
+//   useLocation,
+// } from "react-router-dom";
+import { AuthProvider, useAuth } from "./auth";
+
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useNavigate,
+  useParams,
+  useLocation,
+  Navigate
+} from "../router6-nut/";
 
 export default function App() {
   return (

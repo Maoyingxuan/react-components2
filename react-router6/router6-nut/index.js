@@ -3,5 +3,6 @@ import Route from "./route";
 import Routes from "./routes";
 import Link from "./Link";
 import Outlet from "./Outlet";
-import { useNavigate ,useParams} from "./hooks";
-export {BrowserRouter,Routes,Route,Link, Outlet, useNavigate,useParams}
+import Navigate from "./Navigate"
+import { useNavigate ,useParams, useLocation} from "./hooks";
+export {BrowserRouter,Routes,Route,Link, Outlet, useNavigate,useParams,useLocation, Navigate}

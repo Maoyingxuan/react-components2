@@ -26,10 +26,24 @@ function renderMatches(matches){
 }
 
 export function useNavigate(){
-    // 跳转逻辑
-    //historyAPI
-    const {navigator} = React.useContext(NavigationContext)
-    return navigator.push
+    //跳转
+    const { navigator } = React.useContext(NavigationContext);
+    const navigate = React.useCallback(
+        (to, options = {}) => {
+          if (typeof to === "number") {
+            navigator.go(to);
+            return;
+          }
+          // eslint-disable-next-line no-extra-boolean-cast
+          (!!options.replace ? navigator.replace : navigator.push)(
+            to,
+            options.state
+          );
+        },
+        [navigator]
+      );
+    
+      return navigate;
 }
 
 export function useLocation(){
