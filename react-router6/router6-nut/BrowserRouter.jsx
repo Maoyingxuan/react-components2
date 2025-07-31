@@ -1,5 +1,6 @@
 import React from 'react'
 import Router from "./Router"
+import {useState, useLayoutEffect} from "react"
 import {createBrowserHistory} from "history"
 export default function BrowserRouter({children}) {
 
@@ -8,7 +9,11 @@ export default function BrowserRouter({children}) {
     historyRef.current = createBrowserHistory()
   }
   const history = historyRef.current
+  const [state, setState] = useState({location: history.location})
+  useLayoutEffect(()=>{
+    history.listen(setState)
+  },[history])
   return (
-    <Router children = {children} navigator={history}></Router>
+    <Router children = {children} navigator={history} location = {state.location}></Router>
   )
 }

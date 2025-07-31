@@ -7,7 +7,7 @@
 //   useParams,
 //   useNavigate
 // } from "react-router-dom";
-import { BrowserRouter,Route,Routes,Link } from "../router6-nut";
+import { BrowserRouter,Route,Routes,Link,Outlet,useNavigate,useParams } from "../router6-nut";
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
           <Route path="/" element={<Layout />}>
             <Route path='/' element={<Home />} />
             <Route path="product" element={<Product />} >
-              {/* <Route path=":id" element={<ProductDetail></ProductDetail>}></Route> */}
+              <Route path=":id" element={<ProductDetail></ProductDetail>}></Route>
             </Route>
             {/* <Route path="*" element={<NoMatch />} /> */}
           </Route>
@@ -33,7 +33,7 @@ function Layout() {
       <h3>Layout</h3>
       <Link to="/">首页</Link>
       <Link to="/product">商品</Link>
-      {/* <Outlet /> */}
+      <Outlet />
     </div>
   );
 }
@@ -49,21 +49,21 @@ function Product() {
   return (
     <div>
       <h1>Product</h1>
-        {/* <Link to="/product/123">商品123</Link>
-      <Outlet/> */}
+        <Link to="/product/123">商品123</Link>
+      <Outlet/>
     </div>
   );
 }
-// function ProductDetail() {
-//   const param = useParams()
-//   let navigate = useNavigate()
-//   return (
-//     <div>
-//       <h1>Product{param.id}</h1>
-//       <button onClick={()=>navigate("/")}>go home</button>
-//     </div>
-//   );
-// }
+function ProductDetail() {
+  const param = useParams()
+  let navigate = useNavigate()
+  return (
+    <div>
+      <h1>Product{param.id}</h1>
+      <button onClick={()=>navigate("/")}>go home</button>
+    </div>
+  );
+}
 
 // function NoMatch(){
 //   return(
