@@ -6,8 +6,5 @@ export default function Navigate({to,state,replace}) {
     useEffect(() => {
         navigate(to, { replace, state });
     });
-    useEffect(()=>{
-        navigate(to)
-    })
     return null
 }
