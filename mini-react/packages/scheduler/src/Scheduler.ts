@@ -16,9 +16,9 @@ export type Task = {
 let taskIdCounter = 1; //任务ID计数器
 let startTime = -1 //时间切片起始时间
 let frameInterval = 5 //时间切片 = 5ms
-let isPerformingWork = false //是否正在调度任务
-let isHostCallbackScheduled = false //标记是否安排浏览器调度任务
-let isMessageLoopRunning = false //是否启动消息循环
+let isPerformingWork = false //防止重复进入 flushWork（任务执行中）
+let isHostCallbackScheduled = false //let isPerformingWork = false //防止重复进入 flushWork（任务执行中）
+let isMessageLoopRunning = false 	//防止重复触发 performWorkUntilDeadline() 的消息通道（如 MessageChannel）
 //任务池，最小堆
 const taskQueue: Array<Task> = []
 //当前任务
@@ -30,21 +30,11 @@ let currentPriority: PriorityLevel = NoPriority;
 export function scheduleCallback(
     priorityLevel:PriorityLevel,
     callback:Callback,
-    options?:{delay:number}
 ){
     //任务进入调度
     const currentTime = getCurrentTime()
     let startTime: number;
-    if (isObject(options) && options !== null) {
-      let delay = options?.delay;
-      if (typeof delay === "number" && delay > 0) {
-        startTime = currentTime + delay;
-      } else {
-        startTime = currentTime;
-      }
-    } else {
-      startTime = currentTime;
-    }
+    startTime = currentTime;
     const timeout = getTimeoutByPriorityLevel(priorityLevel);
     const expirationTime = startTime + timeout;
     const newTask = {
@@ -59,11 +49,11 @@ export function scheduleCallback(
     push(taskQueue,newTask)
     if(!isHostCallbackScheduled && !isPerformingWork){
         isHostCallbackScheduled = true
-        requestHostCallback(flushWork) //给浏览器注册一个回调函数
+        requestHostCallback() //给浏览器注册一个回调函数
     }
 }
 //给浏览器注册一个回调函数
-function requestHostCallback(calllback: Callback){
+function requestHostCallback(){
     if(!isMessageLoopRunning){
         isMessageLoopRunning = true
         schedulePerformWorkUntilDeadline() //时间切片内执行，直到时间切片结束
@@ -105,24 +95,7 @@ function flushWork(initialTime: number) {
         isPerformingWork = false
     }
 }
-function requestHostTimeout(){
 
-}
-function handleTimeout(){
-
-}
-function cancelHostTimeout(){
-
-}
-//取消某个任务，先把task.callback 设置为 null
-//位于堆顶时删除
-function cancelCallback(){
-    currentTask!.callback = null
-}
-//获取当前任务优先级
-function getCurrentPriorityLevel(): PriorityLevel {
-  return currentPriority;
-}
 //todo
 //控制权交还给主线程,当前时间 - 开始时间 >= 5ms
 function shouldYieldToHost() {
