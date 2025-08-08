@@ -1,10 +1,10 @@
-import { ReactElement } from "shared/ReactTypes";
+import type { ReactElement } from "shared/ReactTypes";
 import { NoFlags } from "./ReactFiberFlags";
-import { Fiber } from "./ReactInternalTypes";
+import type { Fiber } from "./ReactInternalTypes";
 import { isStr } from "shared/utils";
-import { HostComponent } from "./ReactWorkTags";
-import { IndeterminateComponent, WorkTag } from "./ReactWorkTags";
-
+import { HostComponent, HostText } from "./ReactWorkTags";
+import type {  WorkTag } from "./ReactWorkTags";
+import { IndeterminateComponent } from "./ReactWorkTags";
 // 创建一个fiber
 export function createFiber(
   tag: WorkTag,
@@ -104,4 +104,8 @@ export function createWorkInProgress(current: Fiber, pendingProps: any): Fiber {
   workInProgress.index = current.index;
 
   return workInProgress;
+}
+export function createFiberFromText(content: string): Fiber {
+  const fiber = createFiber(HostText, content, null);
+  return fiber;
 }

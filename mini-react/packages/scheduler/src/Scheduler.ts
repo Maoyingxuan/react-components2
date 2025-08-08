@@ -63,6 +63,7 @@ function performWorkUntilDeadline(){
     if(isMessageLoopRunning){
         //一个work的起始时间
         const currentTime = getCurrentTime()
+        startTime = currentTime
         let hasOtherWork = false;
         try{    
             hasOtherWork = flushWork(currentTime)
@@ -138,3 +139,5 @@ function workLoop(initialTime: number) {
         return false; //没有更多任务需要执行
     }
 }
+
+
