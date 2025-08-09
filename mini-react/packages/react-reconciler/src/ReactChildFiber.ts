@@ -32,6 +32,7 @@ function createChildReconciler(shouldTrackSideEffects: boolean) {
     currentFirstChild: Fiber | null,
     newChild: ReactElement
   ) {
+    // 节点复用： 同一层级相同key且类型相同
     let createdFiber = createFiberFromElement(newChild);
     createdFiber.return = returnFiber;
     return createdFiber;

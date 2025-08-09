@@ -73,8 +73,9 @@ function prepareFreshStack(root: FiberRoot): Fiber {
 
   workInProgressRoot = root; // FiberRoot
   const rootWorkInProgress = createWorkInProgress(root.current, null); // Fiber
-  workInProgress = rootWorkInProgress; // Fiber
-
+  if(workInProgress == null){
+    workInProgress = rootWorkInProgress; // Fiber
+  }
   return rootWorkInProgress;
 }
 
@@ -88,6 +89,7 @@ function performUnitOfWork(unitOfWork: Fiber) {
   const current = unitOfWork.alternate;
   // !1. beginWork
   let next = beginWork(current, unitOfWork);
+  unitOfWork.memoizedProps = unitOfWork.pendingProps
   // 1.1 执行自己
   // 1.2 (协调，bailout)返回子节点
 

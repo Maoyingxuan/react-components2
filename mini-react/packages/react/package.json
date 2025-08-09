@@ -10,5 +10,7 @@
   "author": "",
   "license": "ISC",
   "shared": "workspace:*",
-  "react-reconciler": "workspace:*"
+  "dependencies": {
+    "react-reconciler": "workspace:*"
+  }
 }

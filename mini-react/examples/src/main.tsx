@@ -1,4 +1,4 @@
-import {ReactDOM} from "../whichreact"
+import {ReactDOM, useReducer} from "../whichreact"
 import "./index.css";
 
 let fragment1 = (
@@ -11,19 +11,20 @@ let fragment1 = (
   </>
 );
 function FunctionComponent({ name }: { name: string }) {
+  const [count1, setCount1] = useReducer((x)=>x+1,0)
   return (
     <div>
-      <h3>{name}</h3>
+    <button 
+      onClick={()=>{
+        setCount1()
+      }}
+    >{count1}
+    </button>
     </div>
   );
 }
 const jsx = (
   <div className="box border">
-    <button 
-      onClick={()=>{
-        console.log(1)
-      }}
-    >点击按钮</button>
     <FunctionComponent name="函数组件" />
     {fragment1}
     <h1 className="border">omg</h1>
