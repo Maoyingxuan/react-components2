@@ -8,5 +8,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "shared": "workspace:*",
+  "react-reconciler": "workspace:*"
 }

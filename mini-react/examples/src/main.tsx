@@ -10,9 +10,21 @@ let fragment1 = (
     <>o</>
   </>
 );
-
+function FunctionComponent({ name }: { name: string }) {
+  return (
+    <div>
+      <h3>{name}</h3>
+    </div>
+  );
+}
 const jsx = (
   <div className="box border">
+    <button 
+      onClick={()=>{
+        console.log(1)
+      }}
+    >点击按钮</button>
+    <FunctionComponent name="函数组件" />
     {fragment1}
     <h1 className="border">omg</h1>
     123

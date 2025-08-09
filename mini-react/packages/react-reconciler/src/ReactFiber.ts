@@ -1,8 +1,8 @@
 import type { ReactElement } from "shared/ReactTypes";
 import { NoFlags } from "./ReactFiberFlags";
 import type { Fiber } from "./ReactInternalTypes";
-import { isStr } from "shared/utils";
-import { HostComponent, HostText, Fragment } from "./ReactWorkTags";
+import { isStr, isFn } from "shared/utils";
+import { HostComponent, HostText, Fragment, FunctionComponent } from "./ReactWorkTags";
 import type {  WorkTag } from "./ReactWorkTags";
 import { IndeterminateComponent } from "./ReactWorkTags";
 import { REACT_FRAGMENT_TYPE } from "shared/ReactSymbols"
@@ -68,7 +68,10 @@ export function createFiberFromTypeAndProps(
   pendingProps: any
 ) {
   let fiberTag: WorkTag = IndeterminateComponent;
-  if (isStr(type)) {
+  if(isFn(type)){
+    //函数组件
+    fiberTag = FunctionComponent
+  }else if (isStr(type)) {
     // 原生标签
     fiberTag = HostComponent;
   }else if(type == REACT_FRAGMENT_TYPE){

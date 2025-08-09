@@ -1,7 +1,7 @@
 import { isHost } from "./ReactFiberCompleteWork";
 import { Placement } from "./ReactFiberFlags";
 import type { Fiber, FiberRoot } from "./ReactInternalTypes";
-import { HostComponent, HostRoot, HostText } from "./ReactWorkTags";
+import { HostComponent, HostRoot } from "./ReactWorkTags";
 
 export function commitMutationEffects(root: FiberRoot, finishedWork: Fiber) {
   // 1. 遍历
@@ -24,7 +24,7 @@ function recursivelyTraverseMutationEffects(
 // 提交协调的产生的effects，比如flags，Placement、Update、ChildDeletion
 function commitReconciliationEffects(finishedWork: Fiber) {
   const flags = finishedWork.flags;
-  console.log(flags)
+  // console.log(flags)
   if (flags & Placement) {
     // 页面初次渲染 新增插入 appendChild
     // todo 页面更新，修改位置 appendChild || insertBefore

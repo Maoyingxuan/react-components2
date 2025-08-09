@@ -1,6 +1,6 @@
 import { isNum, isStr } from "shared/utils";
 import type { Fiber } from "./ReactInternalTypes";
-import { Fragment, HostComponent, HostRoot, HostText } from "./ReactWorkTags";
+import { Fragment, HostComponent, HostRoot, HostText, FunctionComponent } from "./ReactWorkTags";
 
 export function completeWork(
   current: Fiber | null,
@@ -13,6 +13,9 @@ export function completeWork(
     }
     case HostRoot: {
       return null;
+    }
+    case FunctionComponent: {
+      return null
     }
     case HostComponent: {
       // 原生标签,type是标签名
@@ -50,7 +53,12 @@ function finalizeInitialChildren(domElement: Element, props: any) {
       }
     } else {
       // 3. 设置属性
-      (domElement as any)[propKey] = nextProp;
+      if(propKey==='onClick'){
+        domElement.addEventListener("click",nextProp)
+      }
+      else{
+        (domElement as any)[propKey] = nextProp;
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import type { Fiber } from "./ReactInternalTypes";
-import { Fragment, HostComponent, HostRoot, HostText } from "./ReactWorkTags";
+import { Fragment, HostComponent, HostRoot, HostText, FunctionComponent } from "./ReactWorkTags";
 import { mountChildFibers, reconcileChildFibers } from "./ReactChildFiber";
 import { isNum, isStr } from "shared/utils";
 
@@ -18,6 +18,8 @@ export function beginWork(
       return updateHostText(current, workInProgress)
     case Fragment:
       return updateHostFragment(current, workInProgress)
+    case FunctionComponent:
+      return updateFunctionComponent(current, workInProgress)
     // todo
   }
   throw new Error(
@@ -60,6 +62,14 @@ function updateHostText(current: Fiber | null, workInProgress: Fiber) {
 function updateHostFragment(current: Fiber | null, workInProgress: Fiber) {
   const nextChildren = workInProgress.pendingProps.children;
   reconcileChildren(current, workInProgress, nextChildren);
+  return workInProgress.child;
+}
+
+//FunctionComponent
+function updateFunctionComponent(current: Fiber | null, workInProgress: Fiber) {
+  const { type, pendingProps } = workInProgress;
+  const children = type(pendingProps);
+  reconcileChildren(current, workInProgress, children);
   return workInProgress.child;
 }
 // 协调子节点，构建新的fiber树
